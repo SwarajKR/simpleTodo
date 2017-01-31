@@ -14,7 +14,7 @@ ApplicationWindow {
                           //Make sure same  task aleardy doesn't exist
                           var already = tx.executeSql("SELECT * FROM storage WHERE TASK LIKE  '"+str+"'");
                           if(already.rows.length != 0){
-                                 alert("already exists!!!!");
+                                
                           }
                           else{
                               var result = tx.executeSql("INSERT INTO storage VALUES('"+str+"')");
@@ -44,6 +44,7 @@ ApplicationWindow {
                       }
         );
     }
+    //ON CLOSE  Button click item is removed from the model and database
     function deleteFunc(task,model,index){
         //OPEN DB
         var db = LocalStorage.openDatabaseSync("simpleDB","1.0","To store the list",10000);
@@ -63,6 +64,7 @@ ApplicationWindow {
     ListModel{
         id: listmodel
     }
+    //COLUMN LAYOUT 1)TEXT FIELD 2)MODEL
     Column{
         anchors.fill: parent
         Rectangle{
@@ -91,14 +93,17 @@ ApplicationWindow {
                 delegate: viewdel
                 spacing : 4
                 currentIndex: 1
+                //Green Box
                 Component{
                     id : viewdel
                         Rectangle{
                             width: parent.width
                             height :40
+                            //Green Box having col layout with 2 rows
                             Row{
                                   width: parent.width
                                   height :40
+                                  //Text from db
                                   Rectangle{
                                       width: parent.width*3/4
                                       height :40
@@ -112,6 +117,7 @@ ApplicationWindow {
                                               text: qsTr(value)
                                       }
                                   }
+                                  //Close
                                   Rectangle{
                                        width: parent.width*1/4
                                        height: 40
@@ -138,6 +144,7 @@ ApplicationWindow {
             }
         }
      }
+    //LOADS FROM DATABSE ON STARTUP
     Component.onCompleted: {
         firstLoad(listmodel);
     }
