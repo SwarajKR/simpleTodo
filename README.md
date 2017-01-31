@@ -1,2 +1,2 @@
 # simpleTodo
-A  simple todo application build in QT Quick
+A  simple todo application build in QT Quick.
